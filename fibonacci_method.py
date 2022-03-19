@@ -21,24 +21,27 @@ class Fibonacci:
         a_n = self.a
         b_n = self.b
 
+        print(f'\nfibonacci: f(x) in [{self.a}, {self.b}]')
+        print(f'N: {N}\n')
+
         y_n = a_n + (self.__fib(N - 2) / self.__fib(N)) * (b_n - a_n)
         z_n = a_n + (self.__fib(N - 1) / self.__fib(N)) * (b_n - a_n)
 
         k = 0
         while k != N - 3:
-            print("Step", k)
-            print("y =", y_n, ",z =", z_n)
+            print('iteration', k)
+            print(f'    y == {y_n}, z == {z_n}')
             if self.opt_func(y_n) > self.opt_func(z_n):
-                print(self.opt_func(y_n), ">", self.opt_func(z_n))
+                print(f'        ✅ {self.opt_func(y_n)} > {self.opt_func(z_n)}')
                 a_n = y_n
                 y_n = z_n
                 z_n = a_n + (self.__fib(N - k - 2) / self.__fib(N - k - 1)) * (b_n - a_n)
             else:
-                print(self.opt_func(y_n), "<=", self.opt_func(z_n))
+                print(f'        ✅ {self.opt_func(y_n)} <= {self.opt_func(z_n)}')
                 b_n = z_n
                 z_n = y_n
                 y_n = a_n + (self.__fib(N - k - 3) / self.__fib(N - k - 1)) * (b_n - a_n)
-            print("L = [", a_n, ";", b_n, "] and", delta)
+            print(f'    [a_{k}, b_{k}] == [{a_n}, {b_n}]; delta == {delta}')
             k += 1
 
         y_n = z_n
@@ -50,6 +53,11 @@ class Fibonacci:
             a_n = y_n
         self.minimum = (a_n + b_n) / 2
 
-        print("\nAnswer:", (a_n + b_n) / 2)
-        print("k =", k)
+        print("\niterations ==", k)
+        print("x_minimum:", (a_n + b_n) / 2)
+        print("f(x_minimum):", self.opt_func((a_n + b_n) / 2))
+
+        fib = [self.__fib(i) for i in range(1, N + 1)]
+        print('fibonacci numbers used: ', fib)
+
         return self.minimum
